@@ -6,10 +6,20 @@ export default class App extends React.Component {
     super(props);
 
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.queryCrypto = this.queryCrypto.bind(this);
   }
 
   componentDidMount() {
-    createChart();
+    this.queryCrypto();
+  }
+
+  queryCrypto() {
+    fetch(`http://localhost:3000/prices`)
+      .then(response => response.json())
+      .then(data => {
+        createChart(data);
+      })
+      .catch(err => console.log(err));
   }
   
   render() {
