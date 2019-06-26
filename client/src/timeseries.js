@@ -19,16 +19,14 @@ const createChart = (priceData) => {
         ],
           borderWidth: 1
         }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: false
-            }
-          }]
+    },
+    options: {
+      elements: {
+        line: {
+            tension: 0
         }
       }
+    }
   });
 }
 
