@@ -6,7 +6,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       type: 'line',
-      types: ['line', 'bar']
+      types: ['line', 'bar'],
+      currencyData: []
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -24,7 +25,11 @@ export default class App extends React.Component {
     fetch(`http://localhost:3000/prices`)
       .then(response => response.json())
       .then(data => {
-        this.chart = createChart(data, type);
+        this.setState({
+          currencyData: data
+        }, () => {
+          this.chart = createChart(data, type);
+        });
       })
       .catch(err => console.log(err));
   }
@@ -47,7 +52,7 @@ export default class App extends React.Component {
       <div>
         <h1>Crypto Viewer</h1>
         <select name="chartType" onChange={this.selectType}>
-            {types.map(type => <option value={type}>{type}</option>)}
+          {types.map(type => <option value={type}>{type}</option>)}
         </select>
         <button type="button" onClick={this.updateChart}>Update</button>
         <canvas id="myChart">
