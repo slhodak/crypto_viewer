@@ -12,6 +12,7 @@ export default class App extends React.Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.queryCrypto = this.queryCrypto.bind(this);
     this.selectType = this.selectType.bind(this);
+    this.updateChart = this.updateChart.bind(this);
   }
 
   componentDidMount() {
@@ -23,7 +24,7 @@ export default class App extends React.Component {
     fetch(`http://localhost:3000/prices`)
       .then(response => response.json())
       .then(data => {
-        createChart(data, type)
+        this.chart = createChart(data, type);
       })
       .catch(err => console.log(err));
   }
@@ -34,19 +35,25 @@ export default class App extends React.Component {
     });
   }
 
+  updateChart() {
+    const { type } = this.state;
+    this.chart.config.type = type;
+    this.chart.update();
+  }
 
   render() {
     const { types } = this.state;
     return (
       <div>
         <h1>Crypto Viewer</h1>
-        <canvas id="myChart">
-          <p>Fallback content</p>
-        </canvas>
         <select name="chartType" onChange={this.selectType}>
             {types.map(type => <option value={type}>{type}</option>)}
         </select>
-        <button type="button" onClick={this.queryCrypto}>Update</button>
+        <button type="button" onClick={this.updateChart}>Update</button>
+        <canvas id="myChart">
+          <p>Fallback content</p>
+        </canvas>
+        <p>Powered by Coindesk</p>
       </div>
     );
   }
