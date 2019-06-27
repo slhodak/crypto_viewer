@@ -1,3 +1,6 @@
+import moment from 'moment';
+import Chart from 'chart.js';
+
 const createChart = (priceData, type) => {
   const prices = [];
   for (let time in priceData.bpi) {
@@ -29,6 +32,12 @@ const createChart = (priceData, type) => {
           }
         }],
         xAxes: [{
+          type: 'time',
+          time: {
+            displayFormats: {
+              day: 'MMM D, YYYY'
+            }
+          },
           scaleLabel: {
             display: true,
             labelString: 'Date'
