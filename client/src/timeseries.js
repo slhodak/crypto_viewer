@@ -1,11 +1,13 @@
-const createChart = (priceData) => {
+import Chart from 'chart.js';
+
+const createChart = (priceData, type) => {
   const prices = [];
   for (let time in priceData.bpi) {
     prices.push([time, priceData.bpi[time]]);
   }
   const ctx = document.getElementById('myChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
+  const chart = new Chart(ctx, {
+    type: type,
     data: {
       labels: prices.map(data => data[0]),
       datasets: [{
@@ -21,6 +23,26 @@ const createChart = (priceData) => {
         }]
     },
     options: {
+      scales: {
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Price'
+          }
+        }],
+        xAxes: [{
+          type: 'time',
+          time: {
+            displayFormats: {
+              day: 'MMM D, YYYY'
+            }
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+          }
+        }]
+      },
       elements: {
         line: {
             tension: 0
@@ -28,6 +50,7 @@ const createChart = (priceData) => {
       }
     }
   });
+  return chart;
 }
 
 export { createChart }
