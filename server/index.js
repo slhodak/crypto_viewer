@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, '../public/')));
 
 app.get('/prices', (req, res) => {
-  request.get(`https://api.coindesk.com/v1/bpi/historical/close.json`)
+  request.get(`https://api.coindesk.com/v1/bpi/historical/close.json?currency=${req.query.curr}`)
     .then(data => {
       res.status(200).send(data);
     })

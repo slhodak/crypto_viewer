@@ -1,11 +1,11 @@
 import Chart from 'chart.js';
 
-const createChart = (priceData, type) => {
+const createChart = (priceData, type, currency) => {
   const prices = [];
   for (let time in priceData.bpi) {
     prices.push([time, priceData.bpi[time]]);
   }
-  const ctx = document.getElementById('myChart').getContext('2d');
+  const ctx = document.getElementById('cryptoPrices').getContext('2d');
   const chart = new Chart(ctx, {
     type: type,
     data: {
@@ -27,7 +27,7 @@ const createChart = (priceData, type) => {
         yAxes: [{
           scaleLabel: {
             display: true,
-            labelString: 'Price'
+            labelString: `Price (${currency})`
           }
         }],
         xAxes: [{
