@@ -1,5 +1,5 @@
 ## Description
-This tool renders recent bitcoin prices using the Coindesk API and [Chart.js](https://www.chartjs.org).
+This tool renders recent bitcoin prices using the Coindesk API and [Chart.js](https://www.chartjs.org). [Image of Chart](https://github.com/slhodak/crypto_viewer/images/crypto_img.png)
 
 ## Setup
 This should work with any version of node since v6.  
